@@ -3,12 +3,22 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'org.judy-kimsohui'
+group = 'org.judy'
 version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -18,19 +28,11 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/judy-kimsohui/")
+            url = uri("https://maven.pkg.github.com/judy-kimsohui/ghcr-library-pjt")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
             }
         }
     }
-}
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
-
-test {
-    useJUnitPlatform()
 }

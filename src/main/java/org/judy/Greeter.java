@@ -1,4 +1,4 @@
-package org.judy-kimsohui;
+package org.judy;
 
 public class Greeter {
     public String greet(String name) {

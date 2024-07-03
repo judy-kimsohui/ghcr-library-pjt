@@ -1,11 +1,10 @@
-FROM openjdk:17-slim as build
+FROM openjdk:17-slim as builder
 WORKDIR /app
 COPY . .
-RUN ./gradlew build -x test
+ARG USERNAME
+ARG TOKEN
+ENV USERNAME=$USERNAME
+ENV TOKEN=$TOKEN
+RUN ./gradlew publish
 
-FROM openjdk:17-slim
-WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
-EXPOSE 8080
-
-CMD ["java", "-jar", "app.jar"]
+# 이후 단계는 라이브러리가 배포용이기 때문에 불필요
